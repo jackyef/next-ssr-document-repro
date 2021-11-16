@@ -6,13 +6,19 @@ interface Props extends DocumentInitialProps {
 
 class MyDocument extends Document<Props> {
   static async getInitialProps(ctx: DocumentContext): Promise<Props> {
+    console.log('client', { query: ctx.query })
+
     const initialProps = await Document.getInitialProps(ctx)
 
-    console.log('client', { query: ctx.query })
+    const statusCode = ctx.query.error ? 404 : 200
+
+    if (ctx.res) {
+      ctx.res.statusCode = statusCode
+    }
 
     return {
       ...initialProps,
-      statusCode: ctx.query.error ? 404 : 200
+      statusCode
     }
   }
 

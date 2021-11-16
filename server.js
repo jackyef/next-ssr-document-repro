@@ -17,7 +17,7 @@ app.prepare().then(() => {
     
     if (pathname === '/') {
       console.log('server', { query })
-      app.render(req, res, '/a', query)
+      app.render(req, res, '/', query)
     } else {
       handle(req, res, parsedUrl)
     }
